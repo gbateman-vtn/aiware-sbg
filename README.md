@@ -68,9 +68,7 @@ query queryJobStatus {
         }
         # taskOutput - include this field for a more verbose output
       }
-    }
-  }
-}
+    }}}
 
 # Retrieving TDO Assets
 
@@ -100,7 +98,7 @@ query getAssets {
   }
 }
 }}}
-
+```
 
 
 
