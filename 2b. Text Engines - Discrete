@@ -1,0 +1,256 @@
+## Retrieve URI VTN output from Transcription in Example 2a
+
+```
+query getAssets {
+  temporalDataObject(id: "TDO_ID") {
+    primaryAsset(assetType: "media") {
+      id
+      signedUri
+      uri
+    }
+    assets {
+      records {
+        id
+        sourceData {
+          engine {
+            id
+            displayName
+            description
+          }
+        }        
+        id
+        signedUri
+
+      }
+    }
+  }
+}
+```
+
+# Run Content Classification using URl of VTN standard or Standard UTF-8 Text file
+```
+mutation IABclassificationDAG{
+  createJob(input: {
+    target: {
+      startDateTime:1574311000
+       stopDateTime: 1574315000
+    }
+    clusterId :"rt-1cdc1d6d-a500-467a-bc46-d3c5bf3d6901"
+    ##Tasks with IOFolders
+    tasks: [
+             {
+        engineId: "8bdb0e3b-ff28-4f6e-a3ba-887bd06e6440"   
+        payload:{
+          url: "${url}"
+          ffmpegTemplate: "rawchunk"
+        }
+        ioFolders: [
+        {
+          referenceId: "chunkOutputFolder"
+          mode: chunk
+          type: output
+        }
+        ]
+      }
+{
+        # IAB Content Classification
+        engineId: "06bbc2e7-aa59-4c32-9ec3-1a147fff78a6"
+        ioFolders: [
+          {
+            referenceId: "engineInputFolder"
+            mode: chunk
+            type: input
+          },
+         {
+            referenceId: "engineOutputFolder"
+            mode: chunk
+            type: output
+          }
+        ]
+                executionPreferences: {
+                 parentCompleteBeforeStarting: true  
+        }
+      }
+       {
+        # output writer
+        engineId: "8eccf9cc-6b6d-4d7d-8cb3-7ebf4950c5f3"   
+        ioFolders: [
+          {
+            referenceId: "owInputFolder"
+            mode: chunk
+            type: input
+          }  
+        ]
+                executionPreferences: {
+                 parentCompleteBeforeStarting: true
+        }
+     }
+    ]
+       ##Routes : A route connect a parent output folder to a child input folder
+   routes: [
+      {  ## WSA--> engine
+        parentIoFolderReferenceId: "chunkOutputFolder"
+        childIoFolderReferenceId: "engineInputFolder"
+        options: {}
+      }
+      {  ## chunkAudio --> Transcription
+        parentIoFolderReferenceId: "engineOutputFolder"
+        childIoFolderReferenceId: "owInputFolder"
+        options: {}
+      }
+    ]
+  }) {
+    targetId
+    id
+    targetId
+    clusterId
+    tasks {
+      records{
+        id
+        engineId
+        payload
+        taskPayload
+        status
+        output
+        ioFolders {
+          referenceId
+          type
+          mode
+        }
+      }
+    }
+    routes {
+      parentIoFolderReferenceId
+      childIoFolderReferenceId
+    }
+  }
+}
+```
+
+# Run Entity Extraction using URl of VTN standard or Standard UTF-8 Text file
+```
+mutation EntityExtractionDAG{
+  createJob(input: {
+    target: {
+      startDateTime:1574311000
+       stopDateTime: 1574315000
+    }
+    clusterId :"rt-1cdc1d6d-a500-467a-bc46-d3c5bf3d6901"
+    ##Tasks with IOFolders
+    tasks: [
+             {
+        engineId: "8bdb0e3b-ff28-4f6e-a3ba-887bd06e6440"   
+        payload:{
+          url: "${url}"
+          ffmpegTemplate: "rawchunk"
+        }
+        ioFolders: [
+        {
+          referenceId: "chunkOutputFolder"
+          mode: chunk
+          type: output
+        }
+        ]
+      }
+{
+        # entityExtraction
+        engineId: "0bf3b38f-6022-412b-b58e-819a2b633786"
+        ioFolders: [
+          {
+            referenceId: "engineInputFolder"
+            mode: chunk
+            type: input
+          },
+         {
+            referenceId: "engineOutputFolder"
+            mode: chunk
+            type: output
+          }
+        ]
+                executionPreferences: {
+                 parentCompleteBeforeStarting: true  
+        }
+      }
+       {
+        # output writer
+        engineId: "8eccf9cc-6b6d-4d7d-8cb3-7ebf4950c5f3"   
+        ioFolders: [
+          {
+            referenceId: "owInputFolder"
+            mode: chunk
+            type: input
+          }  
+        ]
+                executionPreferences: {
+                 parentCompleteBeforeStarting: true
+        }
+     }
+    ]
+       ##Routes : A route connect a parent output folder to a child input folder
+   routes: [
+      {  ## WSA--> engine
+        parentIoFolderReferenceId: "chunkOutputFolder"
+        childIoFolderReferenceId: "engineInputFolder"
+        options: {}
+      }
+      {  ## chunkAudio --> Transcription
+        parentIoFolderReferenceId: "engineOutputFolder"
+        childIoFolderReferenceId: "owInputFolder"
+        options: {}
+      }
+    ]
+  }) {
+    targetId
+    id
+    targetId
+    clusterId
+    tasks {
+      records{
+        id
+        engineId
+        payload
+        taskPayload
+        status
+        output
+        ioFolders {
+          referenceId
+          type
+          mode
+        }
+      }
+    }
+    routes {
+      parentIoFolderReferenceId
+      childIoFolderReferenceId
+    }
+  }
+}
+```
+# Retrieving TDO Assets
+
+Include the TDO ID and all assets will be returned including media link and engine results.
+
+```
+query getAssets {
+  temporalDataObject(id: "TDO_ID") {
+    primaryAsset(assetType: "media") {
+      id
+      signedUri
+    }
+    assets {
+      records {
+        sourceData {
+          engine {
+            id
+            name
+          }
+        }        
+        id
+        createdDateTime
+        assetType
+        signedUri
+      }
+    }
+  }
+}
+```
