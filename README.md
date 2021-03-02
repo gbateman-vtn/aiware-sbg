@@ -1,8 +1,13 @@
 # aiware-sbg
 
-<h1>WORKFLOW</h1>
 
-<h2>Ingest via RSS</h2>
+
+<h1>Veritone API Flow </h1>
+
+1. 'createTDOWithAsset' - Create TDO
+2. `createJob` - Create a cognition job.
+3. `checkJobStatus` - Check the status of a job.
+4. `retrieveEngineOutput` - Retrieve the output of a completed job.
 
 <h2>Create TDO with Asset</h2>
 
@@ -21,5 +26,7 @@ mutation {
  }
 }
 ```
+
+
   
   
