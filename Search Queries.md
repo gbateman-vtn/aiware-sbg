@@ -1,7 +1,8 @@
 API call to search metadata from any category
 	https://docs.veritone.com/#/apis/search-quickstart/
 	
-	https://docs.veritone.com/#/apis/search-quickstart/?id=sample-requests-and-responses
+#SEARCH EXAMPLES
+https://docs.veritone.com/#/apis/search-quickstart/?id=sample-requests-and-responses
 	
  
 #File Data 
