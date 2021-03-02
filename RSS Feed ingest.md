@@ -1,11 +1,11 @@
 #Setting up RSS Source
 
 1. Log into Veritone and Data Center ap for setting up Source
-2. Click New
-3. Source
-	a. Give Name
-	b. Select Podcast as source type
-6. Save
+1. Click New
+1. Source
+	1. Give Name
+	1. Select Podcast as source type
+1. Save
 
 
 #Create a scheduled Job
