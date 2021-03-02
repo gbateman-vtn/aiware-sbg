@@ -1,26 +1,19 @@
-Setting up RSS Source
+#Setting up RSS Source
 
-Log into CMS for setting up Source
+1. Log into Veritone and Data Center ap for setting up Source
+2. Click New
+3. Source
+	a. Give Name
+	b. Select Podcast as source type
+6. Save
 
-Click New
 
-Source
+#Create a scheduled Job
 
-Give Name
+This needs to be done in GQL as Data Center does not have the ability to set up advanced scheduled jobs
 
-Select Podcast as source type
-
-Save
-
-TODO: Update screenshot for Podcast Type
-
-Create a scheduled Job
-
-this needs to be done in GQL as Discovery does not have the ability to set up advanced scheduled jobs
-
-Create a template for your RSS feed createJobTemplateForRSSToS3
-
-Create Schedule Job using the template createScheduledJob
+1. Create a template for your RSS feed createJobTemplateForRSSToS3
+2. Create Schedule Job using the template createScheduledJob
 
 #createJobTemplateForRSSToS3
 ```
