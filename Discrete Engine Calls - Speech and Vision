@@ -1,0 +1,209 @@
+## Example Veritone API Calls
+
+# Creating a job
+
+Choose a template from the options below that fits your desired job type.  There are two necessary items for each job.
+
+- `sourceUrl` A link to your file (signedUrl).
+
+- `engineId` Id of your desired cognition engine.
+
+For a more in-depth look at Job creation, visit the official [Veritone documentation](https://docs.veritone.com/#/quickstart/jobs/?id=working-with-jobs).
+
+# Transcription
+
+Transcription engineId(s):
+
+ Engine Name             | engineId                             | payload name
+ ----------------------- | ------------------------------------ | --------------------------
+ Speechmatics English    | a8c4a9f4-d6c4-4524-ab98-c0de560abf9b | keywords (optional)
+ 
+
+
+### Transcription template
+
+This mutation returns a jobId and a TDOId.  These values are used when retrieving information about the job.  The TDOId holds all the information on a file and can have multiple jobs associated with it.  When you first create a job, a jobId and TDOId will be generated for you.  Subsequent job requests on the same file can be made to the TDOId.
+
+```
+mutation TranscriptionJob {
+    createJob(input: {
+      target: { status: "downloaded" }
+      tasks: [
+        {#INGESTION ENGINE DO NOT CHANGE
+          engineId: "8bdb0e3b-ff28-4f6e-a3ba-887bd06e6440"
+          payload:{
+            ffmpegTemplate: "audio",
+            url: "LINK_TO_YOUR_FILE",
+            customFFMPEGProperties: { chunkSizeInSeconds: "300" }
+          }
+          ioFolders: [
+            { referenceId: "siOutputFolder", mode: chunk, type: output }
+          ]
+          executionPreferences: { parentCompleteBeforeStarting: false, priority:-20 }
+        }
+        {
+        #SPEECH TO TEXT ENGINE ID
+          engineId: "ENGINE_ID"
+          # payload: { keywords: "" }
+          ioFolders: [
+            { referenceId: "engineInputFolder", mode: chunk, type: input }
+            { referenceId: "engineOutputFolder", mode: chunk, type: output }
+          ]
+          executionPreferences: { parentCompleteBeforeStarting: true, priority:-20 }
+        }
+        {
+          # Output writer DO NOT CHANGE
+          engineId: "8eccf9cc-6b6d-4d7d-8cb3-7ebf4950c5f3"
+          executionPreferences: { parentCompleteBeforeStarting: true, priority:-20 }
+          ioFolders: [
+            { referenceId: "owInputFolder", mode: chunk, type: input }
+          ]
+        }
+      ]
+      routes: [
+        { 
+          # chunker --> engine
+          parentIoFolderReferenceId: "siOutputFolder"
+          childIoFolderReferenceId: "engineInputFolder"
+          options: {}
+        }
+        { 
+          # engine --> output writer
+          parentIoFolderReferenceId: "engineOutputFolder"
+          childIoFolderReferenceId: "owInputFolder"
+          options: {}
+        }
+      ]
+    }){
+      targetId
+      id
+}}
+```
+
+# Logo Recognition
+
+Logo Recognition engineId(s):
+
+ Engine Name             | engineId                             
+ ----------------------- | ------------------------------------ 
+ Visua LogoGrab          | 4a52a78f-3bc7-4b3a-9b5a-1a192cc6cfe1 
+ Google Logo             | 18a9c4ca-ec3a-4d20-8985-c606f5e9eb89 
+
+
+```
+mutation LogoRecognitionJob {
+    createJob(input: {
+      target: { status: "downloaded" } 
+      tasks: [
+        {
+        #INGEST ENGINE DO NOT CHANGE ID
+          engineId: "8bdb0e3b-ff28-4f6e-a3ba-887bd06e6440"
+          payload:{
+            ffmpegTemplate: "frame",
+            url: "LINK_TO_YOUR_FILE",
+            customFFMPEGProperties: { framesPerSecond: "1" }
+          }
+          ioFolders: [
+            { referenceId: "siOutputFolder", mode: chunk, type: output }
+          ]
+          executionPreferences: { parentCompleteBeforeStarting: false, priority:-20 }
+        }
+        {
+        #LOGO ENGINE ID
+          engineId: "ENGINE_ID"      
+          ioFolders: [
+            { referenceId: "engineInputFolder", mode: chunk, type: input }
+            { referenceId: "engineOutputFolder", mode: chunk, type: output }
+          ]
+          executionPreferences: { parentCompleteBeforeStarting: true, priority:-20 }
+        }
+        {
+          # Output writer DO NOT CHANGE
+          engineId: "8eccf9cc-6b6d-4d7d-8cb3-7ebf4950c5f3"
+          executionPreferences: { parentCompleteBeforeStarting: true, priority:-20 }
+          ioFolders: [
+            { referenceId: "owInputFolder", mode: chunk, type: input }
+          ]
+        }
+      ]
+      routes: [
+        { 
+          # chunker --> engine
+          parentIoFolderReferenceId: "siOutputFolder"
+          childIoFolderReferenceId: "engineInputFolder"
+          options: {}
+        }
+        { 
+          # engine --> output writer
+          parentIoFolderReferenceId: "engineOutputFolder"
+          childIoFolderReferenceId: "owInputFolder"
+          options: {}
+        }
+      ]
+    }){
+      targetId
+      id
+}}
+```
+
+# OCR
+
+OCR engineId(s):
+
+ Engine Name             | engineId                             | payload name
+ ----------------------- | ------------------------------------ | --------------------------
+ Google OCR              | 18a9c4ca-ec3a-4d20-8985-c606f5e9eb89 | n/a
+
+```
+mutation GoogleOCRJob {
+    createJob(input: {
+      target: { status: "downloaded" } 
+      tasks: [
+        {
+          engineId: "8bdb0e3b-ff28-4f6e-a3ba-887bd06e6440"
+          payload:{
+            ffmpegTemplate: "frame",
+            url: "LINK_TO_YOUR_FILE",
+            customFFMPEGProperties: { framesPerSecond: "1" }
+          }
+          ioFolders: [
+            { referenceId: "siOutputFolder", mode: chunk, type: output }
+          ]
+          executionPreferences: { parentCompleteBeforeStarting: false, priority:-20 }
+        }
+        {
+          engineId: "ENGINE_ID"    
+          ioFolders: [
+            { referenceId: "engineInputFolder", mode: chunk, type: input }
+            { referenceId: "engineOutputFolder", mode: chunk, type: output }
+          ]
+          executionPreferences: { parentCompleteBeforeStarting: true, priority:-20 }
+        }
+        {
+          # Output writer
+          engineId: "8eccf9cc-6b6d-4d7d-8cb3-7ebf4950c5f3"
+          executionPreferences: { parentCompleteBeforeStarting: true, priority:-20 }
+          ioFolders: [
+            { referenceId: "owInputFolder", mode: chunk, type: input }
+          ]
+        }
+      ]
+      routes: [
+        { 
+          # chunker --> engine
+          parentIoFolderReferenceId: "siOutputFolder"
+          childIoFolderReferenceId: "engineInputFolder"
+          options: {}
+        }
+        { 
+          # engine --> output writer
+          parentIoFolderReferenceId: "engineOutputFolder"
+          childIoFolderReferenceId: "owInputFolder"
+          options: {}
+        }
+      ]
+    }){
+      targetId
+      id
+}}
+```
