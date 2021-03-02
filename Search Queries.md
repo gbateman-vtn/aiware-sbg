@@ -1,11 +1,11 @@
 API call to search metadata from any category
 	https://docs.veritone.com/#/apis/search-quickstart/
 	
-#SEARCH EXAMPLES
+<h1>SEARCH EXAMPLES</h1>
 https://docs.veritone.com/#/apis/search-quickstart/?id=sample-requests-and-responses
 	
  
-#File Data 
+<h1>File Data</h1>
 
 ```
 query getFileInfo{
@@ -37,7 +37,7 @@ fileData{
   }
 
 ```
-#Logo Search
+<h1>Logo Search</h1>
 ```
 query{
   searchMedia(search:{
