@@ -28,7 +28,11 @@ mutation {
 ```
 
 # Automate Studio Workflow Job
-Uses Automate Studio Flow deployed as an engine f0f112fe-935f-4d6e-82f9-effd55e867ea that runs 5 cognitive engines with 1 API call.
+Sinclair Cognitive Profile Flow 1
+Uses Automate Studio Flow deployed as an engine
+Sinclair Cognitive Profile Flow 1
+f0f112fe-935f-4d6e-82f9-effd55e867ea
+that runs 5 cognitive engines with 1 API call.
 ```
 mutation createSingleEngineJob {
   launchSingleEngineJob(
