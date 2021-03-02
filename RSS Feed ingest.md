@@ -47,10 +47,10 @@ This needs to be done in GQL as Data Center does not have the ability to set up 
          # Store to S3 media + sidecar
           engineId: "175fe60a-a30b-477a-a1ea-74c727ae6ab0"
           payload: {
-            s3bucket: "s3-scmp-rssvideo-or-1"
-            s3keyPrefix: "aiw/69867"
-            s3accessKey: "QUtJQVFRMlpFN1pEVE5MRjVSUEc="
-            s3accessSecret:"SUUydXVCRWZ2S0V5Mm5oWk9JK3U3bG1KZDNLQ1FDNUhNSTBYQ0E2Zg=="
+            s3bucket: "AWS BUCKET NAME"
+            s3keyPrefix: "aiw/SOURCE_ID"
+            s3accessKey: "AWS ACCESS KEY"
+            s3accessSecret:"AWS SECRET KEY"
             s3region: "us-west-2"
           }
           ioFolders: [
