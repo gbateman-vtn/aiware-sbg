@@ -37,7 +37,9 @@ fileData{
   }
 
 ```
+
 <h1>Logo Search</h1>
+
 ```
 query{
   searchMedia(search:{
@@ -56,4 +58,4 @@ query{
     jsondata
   }
 }
-'''
+```
