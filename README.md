@@ -1,6 +1,9 @@
 # aiware-sbg
 
+login to https://www.veritone.com/   aiWARE-US
 
+Navigate to GraphQL Playground
+https://api.veritone.com/v3/graphql
 
 <h1>Veritone API Flow </h1>
 
@@ -97,7 +100,6 @@ query getAssets {
     }
   }
 }
-}}}
 ```
 
 
