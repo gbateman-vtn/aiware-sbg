@@ -24,7 +24,7 @@ This needs to be done in GQL as Data Center does not have the ability to set up 
       jobConfig: {
          createTDOOnLaunch: false
          sourceData: {
-            sourceId: 69867
+            sourceId: SOURCE_ID
          }
       }
       taskTemplates: [
@@ -33,7 +33,7 @@ This needs to be done in GQL as Data Center does not have the ability to set up 
          engineId: "a725de38-f538-4c4a-b835-b0bd4ab1a255"
          payload: {
             podcastMode: "scan"
-            sourceId: "69867"
+            sourceId: "SOURCE_ID"
          }
         ioFolders: [
           {
