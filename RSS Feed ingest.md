@@ -225,7 +225,7 @@ https://s3-vtn-rssfeed-or-1.s3-us-west-2.amazonaws.com/s3/aiw-69492/org_17154_td
 	"contentType": "video/mp4",
 	"contentLength": 24162563,
 	"contentHash": "md5:8e41fe0def9450daf726091eef5eb4fe",
-	"feedURL": "https://content-syndication-api.gannettdigital.com/content-syndication-api/v1/assets/search?apiKey=iGSpmehH7LgcqqqrLVcxOrgGmWPxHb1N",
+	"feedURL": "https://content-syndication-api.gannettdigital.com/content-syndication-api/v1/assets/search?apiKey=iGSxxxxxxxxxxxxxxxxxxxxxx",
 	"jobId": "20093922_5zcLb7A5Z8",
 	"taskId": "20093922_5zcLb7A5Z8JGLXQ",
 	"recordingId": "1200253347",
