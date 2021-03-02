@@ -7,7 +7,7 @@
 1. 'createTDOWithAsset' - Create TDO
 2. `createJob` - Create a cognition job.
 3. `checkJobStatus` - Check the status of a job.
-4. `retrieveEngineOutput` - Retrieve the output of a completed job.
+4. `getAssets` - Retrieve output of a completed job.
 
 <h2>Create TDO with Asset</h2>
 
@@ -71,25 +71,7 @@ query queryJobStatus {
     }
   }
 }
-```
-# Retrieving engine output from a job
 
-Include the TDO ID and Engine ID to retrieve transcription output in JSON format.
-
-```
-query getEngineOutput {
-  engineResults(tdoId: "TDO_ID",
-    engineIds: ["ENGINE_ID"]) { # Retrieves results from specified engine
-    records {
-      tdoId
-      engineId
-      startOffsetMs
-      stopOffsetMs
-      jsondata
-      assetId
-      userEdited
-}}}
-```
 # Retrieving TDO Assets
 
 Include the TDO ID and all assets will be returned including media link and engine results.
